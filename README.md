@@ -26,3 +26,8 @@ vol.py -f memdumpWin7.mem imageinfo
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Volatile Environment"
 ```
+
+Who is associated with the device?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Microsoft\Windows NT\CurrentVersion\ProfileList"
+```
