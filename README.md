@@ -5,7 +5,7 @@ Volatility memory forensics framework is intended to introduce extraction techni
 
 
 ## Volatility
-If you are running the custom Kali VM, volatility has been **pre-installed`. If you need to manually install, you can run:
+If you are running the custom Kali VM, volatility has been **pre-installed**. If you need to manually install, you can run:
 ```bash
 git clone https://github.com/volatilityfoundation/volatility.git
 ```
