@@ -57,3 +57,15 @@ vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Control\ComputerName\ComputerName"
 ```
+## Look at computer's netstat
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 netscan | grep TCPv4
+```
+## Look at computer's processes
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 pslist
+```
+## Look at computer's processes (filter just for PID 4)
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 pslist -p 4
+```
