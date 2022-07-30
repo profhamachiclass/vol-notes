@@ -21,3 +21,8 @@ Other samples are [here](https://github.com/volatilityfoundation/volatility/wiki
 ```bash
 vol.py -f memdumpWin7.mem imageinfo
 ```
+
+## Who was using the device?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Volatile Environment"
+```
