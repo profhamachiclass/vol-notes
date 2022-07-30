@@ -3,6 +3,7 @@ The Volatility framework is a free and open-source memory forensics tool. It is 
 
 Volatility memory forensics framework is intended to introduce extraction techniques and complexities associated with digital artifacts from volatile memory samples at runtime. Volatility memory extraction utility framework runs on any platform that supports Python. Volatility forensics open source software has 5.1K GitHub stars and 1.1k GitHub forks.
 
+To look up a Enumerated PCI Vendor/Device ID, click [here](https://devicehunt.com/)
 
 ## Volatility
 If you are running the custom Kali VM, volatility has been **pre-installed**. If you need to manually install, you can run:
@@ -17,47 +18,48 @@ wget https://www.dropbox.com/s/x41f2lyhlrixts6/memdumpWin7.mem
 
 Other samples are [here](https://github.com/volatilityfoundation/volatility/wiki/Memory-Samples)
 
-## How to identify the image profile
+### How to identify the image profile
 ```bash
 vol.py -f memdumpWin7.mem imageinfo
 ```
 
-## Who was using the device?
+### Who was using the device?
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Volatile Environment"
 ```
 
-## Who is associated with the device?
+### Who is associated with the device?
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Microsoft\Windows NT\CurrentVersion\ProfileList"
 ```
 
-## Who has a particiular SID?
+### Who has a particiular SID?
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Microsoft\Windows NT\CurrentVersion\ProfileList\S-1-5-21-1716914095-909560446-1177810406-1002"
 ```
 
-## How to find suspect's CPU
+### How to find suspect's CPU
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "DESCRIPTION\System\CentralProcessor\0"
 ```
-## How to find additional PC sysinfo:
+### How to find additional PC sysinfo:
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "DESCRIPTION\System"
 ```
-## Enumerated devices
+### Enumerated devices
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Enum"
 ```
-## How to find devices connected to PCI
+### How to find devices connected to PCI
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Enum\PCI"
 ```
-## How to find Windows computer name
+### How to find Windows computer name
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Control\ComputerName\ComputerName"
 ```
-## Look at computer's netstat
+## Network
+### Look at computer's netstat
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 netscan | grep TCPv4
 ```
