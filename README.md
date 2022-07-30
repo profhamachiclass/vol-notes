@@ -36,3 +36,8 @@ vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Microsoft\Wind
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Microsoft\Windows NT\CurrentVersion\ProfileList\S-1-5-21-1716914095-909560446-1177810406-1002"
 ```
+
+## How to find suspect's CPU
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "DESCRIPTION\System\CentralProcessor\0"
+```
