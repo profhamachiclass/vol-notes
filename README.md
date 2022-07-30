@@ -18,6 +18,7 @@ wget https://www.dropbox.com/s/x41f2lyhlrixts6/memdumpWin7.mem
 
 Other samples are [here](https://github.com/volatilityfoundation/volatility/wiki/Memory-Samples)
 
+## Understand the Suspect and Accounts
 ### How to identify the image profile
 ```bash
 vol.py -f memdumpWin7.mem imageinfo
@@ -37,7 +38,11 @@ vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Microsoft\Wind
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Microsoft\Windows NT\CurrentVersion\ProfileList\S-1-5-21-1716914095-909560446-1177810406-1002"
 ```
-
+### Who is the default logon user?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Microsoft\Windows NT\CurrentVersion\Winlogon"
+```
+## Understand the Suspect's PC
 ### How to find suspect's CPU
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "DESCRIPTION\System\CentralProcessor\0"
@@ -58,7 +63,7 @@ vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Control\ComputerName\ComputerName"
 ```
-## Network
+## Network Forensics
 ### Look at computer's netstat
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 netscan | grep TCPv4
@@ -71,3 +76,60 @@ vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 pslist
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 pslist -p 4
 ```
+## Investigate Command History
+### Did the suspect use commands to copy files?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 cmdscan
+```
+### Alternate Command History
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 consoles
+```
+## Investigate Suspect's USB
+### List all device interfaces
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Control\DeviceClasses"
+```
+### List all device interfaces
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Control\DeviceClasses"
+```
+### List all disk interfaces
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Control\DeviceClasses\{53f56307-b6bf-11d0-94f2-00a0c91efb8b}"
+```
+### Access DeviceClass\Disk Interface\USB Interface
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Control\DeviceClasses\{53f56307-b6bf-11d0-94f2-00a0c91efb8b}\##?#USBSTOR#Disk&Ven_General&Prod_UDisk&Rev_5.00#6&1bec0f48&0&_&0#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}"
+```
+### Verify USBSTOR subkey and timestamp
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Enum\USBSTOR"
+```
+### Which drive letter was the USB assigned to?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "MountedDevices"
+```
+### Who mounted the volume F?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Software\Microsoft\Windows NT\CurrentVersion\Explorer\MountPoints2"
+```
+### When was the USB last attached to the PC?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "Software\Microsoft\Windows\CurrentVersion\Explorer\MountPoints2\F"
+```
+## Investigate Internet History
+### Did the suspect use Internet Explorer?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 iehistory
+```
+## Investigate File Explorer History
+### Are there any folder access activites on 2019-01-06?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 shellbags | grep  "Last updated: 2019-01-06" | sort
+```
+### What are folder access activities on 2019-01-06?
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 shellbags --output=html --output-file=shellbags.html
+```
+## Assemble the timeline
