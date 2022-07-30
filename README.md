@@ -49,3 +49,7 @@ vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "DESCRIPTION\Sy
 ```bash
 vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Enum"
 ```
+## How to find devices connected to PCI
+```bash
+vol.py -f memdumpWin7.mem --profile=Win7SP1x86_23418 printkey -K "ControlSet001\Enum\PCI"
+```
